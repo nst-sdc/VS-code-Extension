@@ -16,6 +16,12 @@
       }
     ]
   },
+<<<<<<< HEAD
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+=======
 
   "scripts": {
     "start": "webpack serve --mode development",
@@ -23,10 +29,12 @@
     "watch": "webpack --watch"
   },
 
+>>>>>>> e580be1901b0dae8cdbf6c050bb8bf689858f7f6
   "categories": [
     "Other"
   ],
   "dependencies": {
+    "jspdf": "^3.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
