@@ -29,6 +29,32 @@ const translations = {
     pin: "Fijar",
   },
 };
+const devTips = [
+  "Use meaningful variable names to improve code readability, e.g., `userCount` instead of `x`.",
+  "Break down complex functions into smaller, single-purpose functions for better maintainability.",
+  "Leverage version control (e.g., Git) and commit frequently with clear messages to track changes effectively.",
+  "Write unit tests to catch bugs early and ensure your code behaves as expected.",
+  "Use comments sparingly; focus on making your code self-explanatory through clear structure and naming.",
+  "Learn keyboard shortcuts for your IDE to boost productivity, like Ctrl+Shift+F for global search.",
+  "Regularly refactor your code to eliminate technical debt and improve performance.",
+  "Use linters and formatters (e.g., ESLint, Prettier) to enforce consistent coding styles.",
+  "Understand time complexity (e.g., O(n) vs O(n²)) to write efficient algorithms.",
+  "Back up your work regularly and use cloud storage to prevent data loss.",
+  "Practice defensive programming by validating inputs to prevent unexpected errors.",
+  "Keep your dependencies updated, but test thoroughly to avoid breaking changes.",
+  "Use environment variables to store sensitive data like API keys securely.",
+  "Profile your application to identify and optimize performance bottlenecks.",
+  "Read documentation thoroughly before integrating a new library or framework.",
+  "Pair program with a colleague to share knowledge and catch mistakes early.",
+  "Use `const` by default in JavaScript, and only use `let` when reassignment is needed.",
+  "Learn to use debugging tools like breakpoints and watch variables to troubleshoot effectively.",
+  "Write clear error messages that help users understand and resolve issues.",
+  "Stay curious and experiment with new tools or languages to broaden your skillset.",
+];
+const getRandomTip = () => {
+  const index = Math.floor(Math.random() * devTips.length);
+  return devTips[index];
+};
 
 const App = () => {
   const [note, setNote] = useState("");
@@ -38,6 +64,7 @@ const App = () => {
   const [language, setLanguage] = useState("english");
   const [selectedColor, setSelectedColor] = useState("#2B77BD");
   const [colorFormat, setColorFormat] = useState("hex");
+  const [devTip, setDevTip] = useState("");
 
   useEffect(() => {
     const saved = localStorage.getItem("my-vscode-notes");
@@ -67,7 +94,7 @@ const App = () => {
     });
     setNote("");
     setWarning("");
-    alert("✅ Note Saved!");
+    showMessage("✅ Note Saved!");
   };
 
   const handleClear = () => {
@@ -93,10 +120,16 @@ const App = () => {
   };
 
   const handleCopyColor = () => {
-    const colorValue = colorFormat === "hex" ? selectedColor : hexToRgb(selectedColor);
+    const colorValue =
+      colorFormat === "hex" ? selectedColor : hexToRgb(selectedColor);
     navigator.clipboard.writeText(colorValue);
-    alert(`${colorFormat.toUpperCase()} ${colorValue} copied to clipboard!`);
+    showMessage(
+      `${colorFormat.toUpperCase()} ${colorValue} copied to clipboard!`
+    );
   };
+  useEffect(() => {
+    setDevTip(getRandomTip);
+  }, []);
 
   const styleContainer = {
     ...styles.container,
@@ -140,6 +173,10 @@ const App = () => {
           <option value="spanish">Española</option>
         </select>
       </div>
+      <div style={styles.devTipContainer}>
+        <h3 style={styles.devHeading}>dev TIPS</h3>
+        <p>{devTip}</p>
+      </div>
 
       <textarea
         placeholder={translations[language].placeholder}
@@ -155,7 +192,10 @@ const App = () => {
         <button onClick={handleClear} style={styles.clearBtn}>
           🧹 {translations[language].clearButton}
         </button>
-        <button onClick={() => setDarkMode(!darkMode)} style={styleToggleButton}>
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          style={styleToggleButton}
+        >
           {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
         </button>
       </div>
@@ -185,7 +225,10 @@ const App = () => {
       )}
 
       <div style={{ marginTop: "30px" }}>
-        <label htmlFor="colorPicker" style={{ marginRight: "10px", fontSize: "15px" }}>
+        <label
+          htmlFor="colorPicker"
+          style={{ marginRight: "10px", fontSize: "15px" }}
+        >
           🎨 Pick a Color:
         </label>
         <input
@@ -309,6 +352,25 @@ const styles = {
     fontSize: "13px",
     transition: "background-color 0.3s",
     boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+  },
+  devTipContainer: {
+    textAlign: "center",
+    padding: "24px 32px",
+    fontSize: "16px",
+    fontWeight: "500",
+    background: "linear-gradient(90deg, #1F2937 0%, #374151 100%)",
+    border: "1px solid rgba(255, 255, 0.1)",
+    borderRadius: "12px",
+    margin: "32px 0",
+    color: "#F9FAFB",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+  },
+  devHeading: {
+    fontFamily: "'Inter', -apple-system, Roboto, sans-serif",
+    fontSize: "1.25rem",
+    fontWeight: "700",
+    letterSpacing: "0.1px",
+    color: "#FFFFFF",
   },
 };
 

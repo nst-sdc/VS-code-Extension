@@ -16,13 +16,11 @@
       }
     ]
   },
-
   "scripts": {
     "start": "webpack serve --mode development",
-    "build": "webpack"
+    "build": "webpack",
     "watch": "webpack --watch"
   },
-
   "categories": [
     "Other"
   ],
@@ -35,6 +33,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "babel-loader": "^10.0.0",
+    "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
   }
