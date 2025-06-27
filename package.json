@@ -6,16 +6,36 @@
   "engines": {
     "vscode": "^1.80.0"
   },
-  "activationEvents": [],
-  "main": "extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "extension.showReactWebview",
-        "title": "Show React Webview"
-      }
-    ]
-  },
+ "activationEvents": [
+  "onCommand:extension.showReactWebview",
+  "onCommand:extension.searchStackOverflow"
+],
+"main": "extension.js",
+"contributes": {
+  "commands": [
+    {
+      "command": "extension.showReactWebview",
+      "title": "Show React Webview"
+    },
+    {
+      "command": "extension.searchStackOverflow",
+      "title": "Search Stack Overflow"
+    }
+  ],
+  "keybindings": [
+    {
+      "command": "extension.searchStackOverflow",
+      "key": "ctrl+0",
+      "when": "editorTextFocus"
+    },
+    {
+      "command": "extension.searchStackOverflow",
+      "key": "cmd+0",
+      "when": "editorTextFocus"
+    }
+  ]
+},
+
   "scripts": {
     "start": "webpack serve --mode development",
     "build": "webpack",
@@ -39,3 +59,35 @@
     "webpack-dev-server": "^5.2.2"
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
