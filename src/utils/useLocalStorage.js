@@ -1,24 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useLocalStorage = (key, initialValue) => {
-    const [storedValue, setStoredValue] = useState(() => {
-        try {
-            const item = localStorage.getItem(key);
-            return item ? JSON.parse(item) : initialValue;
-        } catch (error) {
-            console.log("localStorage not available in VS Code context");
-            return initialValue;
-        }
-    });
+  const [storedValue, setStoredValue] = useState(initialValue);
 
-    const setValue = (value) => {
-        try {
-            setStoredValue(value);
-            localStorage.setItem(key, JSON.stringify(value));
-        } catch (error) {
-            console.log("localStorage not available in VS Code context");
-        }
-    };
+  useEffect(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      if (item) {
+        setStoredValue(JSON.parse(item));
+      }
+    } catch (error) {
+      console.warn("⚠️ localStorage not accessible in this context:", error);
+    }
+  }, [key]);
 
-    return [storedValue, setValue];
+  const setValue = (value) => {
+    try {
+      setStoredValue(value);
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.warn("⚠️ Could not write to localStorage:", error);
+    }
+  };
+
+  return [storedValue, setValue];
 };
