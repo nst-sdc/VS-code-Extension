@@ -18,8 +18,10 @@ const NoteTaker = ({
     borderRadius: "6px",
     resize: "vertical",
     fontFamily: "monospace",
-    backgroundColor: darkMode ? "#1e1e1e" : "#fff",
-    color: darkMode ? "#fff" : "#000",
+    backgroundColor: darkMode ? "#1e1e1e" : "#68338a",
+    
+
+    color: darkMode ? "#eee" : "#eee",
     border: darkMode ? "1px solid #555" : "1px solid #ccc",
   };
 
@@ -28,13 +30,12 @@ const NoteTaker = ({
     display: "flex",
     gap: "30px",
     flexWrap: "wrap",
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
   };
 
-  const saveButtonStyle = {
-    backgroundColor: "#4CAF50",
+  const ButtonStyle = {
+    backgroundColor: darkMode ? "#2a2a2a" : "#68338a",
     color: "white",
     border: "none",
     padding: "10px 15px",
@@ -42,14 +43,7 @@ const NoteTaker = ({
     cursor: "pointer",
   };
 
-  const clearButtonStyle = {
-    backgroundColor: "#f44336",
-    color: "white",
-    border: "none",
-    padding: "10px 15px",
-    borderRadius: "6px",
-    cursor: "pointer",
-  };
+  
 
   const warningStyle = {
     color: "#cc3300",
@@ -61,6 +55,7 @@ const NoteTaker = ({
   return (
     <div>
       <textarea
+        className="purple-placeholder"
         placeholder={translations[language].placeholder}
         value={note}
         onChange={(e) => setNote(e.target.value)}
@@ -68,10 +63,10 @@ const NoteTaker = ({
       />
 
       <div style={buttonContainerStyle}>
-        <button onClick={onSave} style={saveButtonStyle}>
+        <button onClick={onSave} style={ButtonStyle}>
           {translations[language].saveButton}
         </button>
-        <button onClick={onClear} style={clearButtonStyle}>
+        <button onClick={onClear} style={ButtonStyle}>
           {translations[language].clearButton}
         </button>
       </div>
