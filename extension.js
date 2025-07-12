@@ -2,7 +2,7 @@ const vscode = require("vscode");
 const path = require("path");
 const https = require("https");
 
-let panel; 
+let panel;
 function activate(context) {
   // Show React Webview Command
   let showWebviewCommand = vscode.commands.registerCommand(
@@ -10,7 +10,7 @@ function activate(context) {
     function () {
       if (panel) {
         panel.reveal();
-        return 
+        return
       }
       panel = vscode.window.createWebviewPanel(
         "reactWebview",
@@ -33,8 +33,8 @@ function activate(context) {
           command: "loadNotes",
           payload: savedNotes,
         });
-      }, 200); 
-      
+      }, 200);
+
 
 
       panel.webview.onDidReceiveMessage(
@@ -42,7 +42,7 @@ function activate(context) {
           if (message.command === "alert") {
             vscode.window.showInformationMessage(message.text);
           }
-      
+
           // notes ko global state me save kare hai
           if (message.command === "saveNotes") {
             context.globalState.update("my-vscode-notes", message.payload);
@@ -54,7 +54,7 @@ function activate(context) {
       panel.onDidDispose(() => {
         panel = null;
       });
-      
+
     }
   );
 
@@ -146,11 +146,11 @@ function activate(context) {
 function getWebviewContent(panel) {
   const bundlePath = vscode.Uri.file(path.join(__dirname, "dist", "bundle.js"));
   const bundleUri = panel.webview.asWebviewUri(bundlePath);
-  
+
   // Add logo URI
   const logoPath = vscode.Uri.file(path.join(__dirname, "public", "logoo.png"));
   const logoUri = panel.webview.asWebviewUri(logoPath);
-  
+
   const nonce = getNonce();
 
   return `
